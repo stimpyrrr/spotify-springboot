@@ -56,4 +56,12 @@ public class Usuario {
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
+
+    public Plan getPlan() {
+        return plan;
+    }
+
+    public void setPlan(Plan plan) {
+        this.plan = plan;
+    }
 }

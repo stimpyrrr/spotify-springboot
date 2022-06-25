@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlanServiceImpl implements PlanService {
@@ -24,12 +25,38 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
+    public Plan findById(Integer id) {
+        Optional<Plan> plan = planRepository.findById(id);
+        return plan.isPresent() ? plan.get() : new Plan();
+    }
+
+    @Override
     public Plan save(Plan plan) {
         return planRepository.save(plan);
     }
 
     @Override
-    public List<Plan> findAllByName(String nombre) {
-        return null;
+    public Plan update(Plan plan, Integer id) {
+        Optional<Plan> findPlan = planRepository.findById(id);
+        if (findPlan.isPresent()){
+            plan.setIdPlan(id);
+            return save(plan);
+        }
+        else{
+            return new Plan();
+        }
     }
+
+    @Override
+    public boolean deleteById(Integer id) {
+        return false;
+    }
+
+    @Override
+    public List<Plan> findAllByName(String nombre) {
+        return planRepository.findAllByNombre(nombre);
+    }
+
+
+
 }

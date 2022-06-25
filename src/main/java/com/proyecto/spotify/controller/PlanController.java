@@ -32,4 +32,9 @@ public class PlanController {
     public Plan save(@RequestBody Plan plan){
         return planService.save(plan);
     }
+
+    @PutMapping("/{id}")
+    public Plan update(@RequestBody Plan plan, @PathVariable("id") Integer id){
+        return planService.update(plan, id);
+    }
 }
