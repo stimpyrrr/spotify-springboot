@@ -1,5 +1,6 @@
 package com.proyecto.spotify.service.impl;
 
+import com.proyecto.spotify.exception.ModeloNotFoundException;
 import com.proyecto.spotify.model.Usuario;
 import com.proyecto.spotify.repository.UsuarioRepository;
 import com.proyecto.spotify.service.UsuarioService;
@@ -23,7 +24,13 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario findById(Integer id) {
         Optional<Usuario> usuario = usuarioRepository.findById(id);
-        return usuario.isPresent() ? usuario.get() : new Usuario();
+        if (usuario.isPresent()){
+            return usuario.get();
+        }
+        else{
+            throw new ModeloNotFoundException("El usuario no fue encontrado o su valor es nulo");
+        }
+        //return usuario.isPresent() ? usuario.get() : new Usuario();
     }
 
     @Override

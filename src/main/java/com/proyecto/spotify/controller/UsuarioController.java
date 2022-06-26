@@ -1,5 +1,6 @@
 package com.proyecto.spotify.controller;
 
+import com.proyecto.spotify.model.Playlist;
 import com.proyecto.spotify.model.Usuario;
 import com.proyecto.spotify.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,11 @@ public class UsuarioController {
     @GetMapping("/nombre/{nombre}")
     public List<Usuario> findAllByName(@PathVariable("nombre") String nombre){
         return usuarioService.findAllByName(nombre);
+    }
+
+    @GetMapping("{id}")
+    public Usuario findById(@PathVariable("id") Integer id){
+        return usuarioService.findById(id);
     }
 
     @PostMapping

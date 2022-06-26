@@ -1,8 +1,13 @@
 package com.proyecto.spotify.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
+@ApiModel(description = "Información o propiedes del artista")
 @Entity
 @Table(name = "artista")
 public class Artista {
@@ -11,6 +16,8 @@ public class Artista {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idArtista;
 
+    @ApiModelProperty(notes = "Nombre dene tener como minimo 3 caracteres y máximo 50")
+    @Size(min = 3, max = 50, message = "El nombre no cumple con los valores especificados")
     @Column(name = "nombre")
     private String nombre;
 

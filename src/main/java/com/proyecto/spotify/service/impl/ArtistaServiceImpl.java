@@ -1,5 +1,6 @@
 package com.proyecto.spotify.service.impl;
 
+import com.proyecto.spotify.exception.ModeloNotFoundException;
 import com.proyecto.spotify.model.Artista;
 import com.proyecto.spotify.repository.ArtistaRepository;
 import com.proyecto.spotify.service.ArtistaService;
@@ -23,7 +24,12 @@ public class ArtistaServiceImpl implements ArtistaService {
     @Override
     public Artista findById(Integer id) {
         Optional<Artista> artista = artistaRepository.findById(id);
-        return artista.isPresent() ? artista.get() : new Artista();
+        if (artista.isPresent()){
+            return artista.get();
+        }else{
+            throw new ModeloNotFoundException("Error al encontrar Artista");
+        }
+        //return artista.isPresent() ? artista.get() : new Artista();
     }
 
     @Override

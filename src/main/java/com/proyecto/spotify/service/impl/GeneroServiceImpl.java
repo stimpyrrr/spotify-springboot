@@ -1,5 +1,6 @@
 package com.proyecto.spotify.service.impl;
 
+import com.proyecto.spotify.exception.ModeloNotFoundException;
 import com.proyecto.spotify.model.Genero;
 import com.proyecto.spotify.repository.GeneroRepository;
 import com.proyecto.spotify.service.GeneroService;
@@ -23,7 +24,12 @@ public class GeneroServiceImpl implements GeneroService {
     @Override
     public Genero findById(Integer id) {
         Optional<Genero> genero = generoRepository.findById(id);
-        return genero.isPresent() ? genero.get() : new Genero();
+        if (genero.isPresent()){
+            return genero.get();
+        }else{
+            throw new ModeloNotFoundException("Error al encontrar Género");
+        }
+        //return genero.isPresent() ? genero.get() : new Genero();
     }
 
     @Override

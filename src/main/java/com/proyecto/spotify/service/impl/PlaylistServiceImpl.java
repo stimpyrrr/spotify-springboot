@@ -1,5 +1,6 @@
 package com.proyecto.spotify.service.impl;
 
+import com.proyecto.spotify.exception.ModeloNotFoundException;
 import com.proyecto.spotify.model.Playlist;
 import com.proyecto.spotify.repository.PlaylistRepository;
 import com.proyecto.spotify.service.PlaylistService;
@@ -23,7 +24,13 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Override
     public Playlist findById(Integer id) {
         Optional<Playlist> playlist = playlistRepository.findById(id);
-        return playlist.isPresent() ? playlist.get() : new Playlist();
+        if (playlist.isPresent()){
+            return playlist.get();
+        }
+        else{
+            throw new ModeloNotFoundException("Error al encontrar playlist");
+        }
+        //return playlist.isPresent() ? playlist.get() : new Playlist();
     }
 
     @Override

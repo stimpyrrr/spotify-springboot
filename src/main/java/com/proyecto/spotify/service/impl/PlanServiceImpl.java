@@ -1,5 +1,6 @@
 package com.proyecto.spotify.service.impl;
 
+import com.proyecto.spotify.exception.ModeloNotFoundException;
 import com.proyecto.spotify.model.Plan;
 import com.proyecto.spotify.repository.PlanRepository;
 import com.proyecto.spotify.service.PlanService;
@@ -27,7 +28,12 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public Plan findById(Integer id) {
         Optional<Plan> plan = planRepository.findById(id);
-        return plan.isPresent() ? plan.get() : new Plan();
+        if (plan.isPresent()){
+            return plan.get();
+        }else{
+            throw new ModeloNotFoundException("Error al encontrar Plan");
+        }
+        //return plan.isPresent() ? plan.get() : new Plan();
     }
 
     @Override
