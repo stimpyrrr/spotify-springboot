@@ -54,4 +54,10 @@ public class PlaylistServiceImpl implements PlaylistService {
         return true;
     }
 
+    @Override
+    public Playlist leerPorId(Integer id) {
+        Optional<Playlist> op = playlistRepository.findById(id);
+        return op.isPresent() ? op.get() : new Playlist();
+    }
+
 }

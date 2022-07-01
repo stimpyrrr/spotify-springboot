@@ -3,6 +3,7 @@ package com.proyecto.spotify.service.impl;
 import com.proyecto.spotify.exception.ModeloNotFoundException;
 import com.proyecto.spotify.model.Artista;
 import com.proyecto.spotify.repository.ArtistaRepository;
+import com.proyecto.spotify.repository.CancionRepository;
 import com.proyecto.spotify.service.ArtistaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ public class ArtistaServiceImpl implements ArtistaService {
 
     @Autowired
     private ArtistaRepository artistaRepository;
+    private CancionRepository cancionRepository;
 
     @Override
     public List<Artista> findAll() {

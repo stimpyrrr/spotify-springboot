@@ -1,7 +1,9 @@
 package com.proyecto.spotify.service.impl;
 
 import com.proyecto.spotify.exception.ModeloNotFoundException;
+import com.proyecto.spotify.model.Artista;
 import com.proyecto.spotify.model.Cancion;
+import com.proyecto.spotify.model.Playlist;
 import com.proyecto.spotify.repository.CancionRepository;
 import com.proyecto.spotify.service.CancionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,17 @@ public class CancionServiceImpl implements CancionService {
     }
 
     @Override
+    public List<Cancion> findAllByName(String nombre) {
+        return cancionRepository.findAllByNombre(nombre);
+    }
+
+    @Override
+    public Cancion leerPorId(Integer id) {
+        Optional<Cancion> op = cancionRepository.findById(id);
+        return op.isPresent() ? op.get() : new Cancion();
+    }
+
+    @Override
     public Cancion save(Cancion cancion) {
         return cancionRepository.save(cancion);
     }
@@ -46,10 +59,5 @@ public class CancionServiceImpl implements CancionService {
     public boolean deleteById(Integer id) {
         cancionRepository.deleteById(id);
         return true;
-    }
-
-    @Override
-    public List<Cancion> findAllByName(String nombre) {
-        return cancionRepository.findAllByNombre(nombre);
     }
 }
