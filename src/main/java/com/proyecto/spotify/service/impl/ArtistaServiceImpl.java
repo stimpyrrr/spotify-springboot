@@ -1,13 +1,16 @@
 package com.proyecto.spotify.service.impl;
 
+import com.proyecto.spotify.dto.ArtistaListaCancionDTO;
 import com.proyecto.spotify.exception.ModeloNotFoundException;
 import com.proyecto.spotify.model.Artista;
+import com.proyecto.spotify.repository.ArtistaCancionRepository;
 import com.proyecto.spotify.repository.ArtistaRepository;
 import com.proyecto.spotify.repository.CancionRepository;
 import com.proyecto.spotify.service.ArtistaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +19,10 @@ public class ArtistaServiceImpl implements ArtistaService {
 
     @Autowired
     private ArtistaRepository artistaRepository;
+
+    @Autowired
+    private ArtistaCancionRepository artistaCancionRepository;
+    @Autowired
     private CancionRepository cancionRepository;
 
     @Override
@@ -53,5 +60,25 @@ public class ArtistaServiceImpl implements ArtistaService {
     @Override
     public List<Artista> findAllByName(String nombre) {
         return artistaRepository.findAllByNombre(nombre);
+    }
+
+    //@Override
+    /*public Artista registrar(Artista artista) {
+        return null;
+    }*/
+
+    @Transactional
+    @Override
+    public Artista registrarTransaccional(ArtistaListaCancionDTO dto) {
+        artistaRepository.save(dto.getArtista());
+
+        dto.getLstCancion().forEach(can -> {
+            cancionRepository.save(can);
+        });
+
+        dto.getLstCancion().forEach(can -> {
+            artistaCancionRepository.registrar(dto.getArtista().getIdArtista(), can.getIdCancion());
+        });
+        return dto.getArtista();
     }
 }

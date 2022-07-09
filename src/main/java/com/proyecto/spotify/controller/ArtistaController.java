@@ -1,11 +1,17 @@
 package com.proyecto.spotify.controller;
 
+import com.proyecto.spotify.dto.ArtistaListaCancionDTO;
 import com.proyecto.spotify.model.Artista;
 import com.proyecto.spotify.service.ArtistaService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -79,9 +85,16 @@ public class ArtistaController {
             @ApiResponse(code = 405, message = "No se encontraron artistas en la BD"),
             @ApiResponse(code = 200, message = "Peticón OK")})
     @PostMapping
+    public ResponseEntity<Object> registrar(@Valid @RequestBody ArtistaListaCancionDTO artistaDTO){
+        Artista obj = artistaService.registrarTransaccional(artistaDTO);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getIdArtista()).toUri();
+        //return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(obj, HttpStatus.OK);
+    }
+    /*@PostMapping
     public Artista save(@RequestBody Artista artista){
         return artistaService.save(artista);
-    }
+    }*/
 
     @ApiOperation(value = "Actualizar Artista",
             notes = "Se necesita parámetro de entrada",

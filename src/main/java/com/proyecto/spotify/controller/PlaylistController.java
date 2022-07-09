@@ -1,8 +1,6 @@
 package com.proyecto.spotify.controller;
 
-import com.proyecto.spotify.dto.PlaylistDTO;
 import com.proyecto.spotify.exception.ModeloNotFoundException;
-import com.proyecto.spotify.model.Cancion;
 import com.proyecto.spotify.model.Playlist;
 import com.proyecto.spotify.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +51,7 @@ public class PlaylistController {
         return new ResponseEntity<Playlist>(obj, HttpStatus.OK);
     }
 
+    /*
     @GetMapping(value = "hateoas", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<PlaylistDTO> listarHateoas() {
         List<Playlist> playlists = new ArrayList<>();
@@ -77,7 +75,7 @@ public class PlaylistController {
         return playlistsDTO;
 
     }
-
+    */
     @PostMapping
     public Playlist save(@RequestBody Playlist playlist){
         return playlistService.save(playlist);
