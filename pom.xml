@@ -59,6 +59,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-hateoas</artifactId>
 		</dependency>
+		<!-- inicio Spring Security -->
+		<!-- si tenemos agregado solo esta dependencia
+			 cuando intente pegar a un servicio me va a decir que no está autorizado.
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<!-- fin Spring Security -->
 	</dependencies>
 
 	<build>
